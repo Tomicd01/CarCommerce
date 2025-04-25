@@ -1,5 +1,5 @@
 ﻿using CarShopApi.Core.Entities;
-using Infrastructure.Data;
+using CarShopApi.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

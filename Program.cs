@@ -1,5 +1,5 @@
 using CarShopApi;
-using Infrastructure.Data;
+using CarShopApi.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

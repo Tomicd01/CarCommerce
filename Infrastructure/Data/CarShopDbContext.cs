@@ -1,7 +1,7 @@
 ﻿using CarShopApi.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Data
+namespace CarShopApi.Data
 {
     public class CarShopDbContext : DbContext
     {
@@ -11,7 +11,7 @@ namespace Infrastructure.Data
         public DbSet<Car> Cars { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+
         }
     }
 }
