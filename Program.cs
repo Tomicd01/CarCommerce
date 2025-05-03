@@ -1,6 +1,6 @@
 using CarShopApi;
 using CarShopApi.Core.Interfaces;
-using CarShopApi.Data;
+using Infrastructure.Data;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 

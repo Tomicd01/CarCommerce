@@ -1,6 +1,6 @@
 ﻿using CarShopApi.Core.Entities;
 using CarShopApi.Core.Interfaces;
-using CarShopApi.Data;
+using Infrastructure.Data;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +27,18 @@ namespace CarShopApi.Controllers
         public async Task<Car> GetCar(int id)
         {
             return await _carRepository.GetCarByIdAsync(id);
+        }
+
+        [HttpGet("manufacturers")]
+        public async Task<ActionResult<IReadOnlyList<CarManufacturer>>> GetCarManufacturers()
+        {
+            return Ok(await _carRepository.GetCarManufacturersAsync());
+        }
+
+        [HttpGet("types")]
+        public async Task<ActionResult<IReadOnlyList<CarManufacturer>>> GetCarTypes()
+        {
+            return Ok(await _carRepository.GetCarTypesAsync());
         }
     }
 }

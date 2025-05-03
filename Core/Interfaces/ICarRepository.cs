@@ -12,5 +12,7 @@ namespace CarShopApi.Core.Interfaces
     {
         Task<Car> GetCarByIdAsync(int id);
         Task<IReadOnlyList<Car>> GetCarsAsync();
+        Task<IReadOnlyList<CarManufacturer>> GetCarManufacturersAsync();
+        Task<IReadOnlyList<CarType>> GetCarTypesAsync();
     }
 }
