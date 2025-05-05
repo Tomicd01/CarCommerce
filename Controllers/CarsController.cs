@@ -1,5 +1,7 @@
 ﻿using CarShopApi.Core.Entities;
 using CarShopApi.Core.Interfaces;
+using Core.Interfaces;
+using Core.Specifications;
 using Infrastructure.Data;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -11,34 +13,44 @@ namespace CarShopApi.Controllers
     [Route("api/[controller]")]
     public class CarsController : ControllerBase
     {  
-        private readonly ICarRepository _carRepository;
-        public CarsController(ICarRepository repo)
+        private readonly IGenericRepository<Car> _carRepo;
+        private readonly IGenericRepository<CarManufacturer> _manuRepo;
+        private readonly IGenericRepository<CarType> _typeRepo;
+        public CarsController(IGenericRepository<Car> carRepo, 
+            IGenericRepository<CarManufacturer> manuRepo, 
+            IGenericRepository<CarType> typeRepo)
         {
-            _carRepository = repo;
+            _carRepo = carRepo;
+            _manuRepo = manuRepo;
+            _typeRepo = typeRepo;
         }
         [HttpGet]
         public async Task<ActionResult<List<Car>>> GetCars()
         {
-            var cars = await _carRepository.GetCarsAsync();
+            var spec = new CarsWithTypesAndBrandsSpecification();
+
+            var cars = await _carRepo.ListAsync(spec);
             return Ok(cars);
         }
 
         [HttpGet("{id}")]
         public async Task<Car> GetCar(int id)
         {
-            return await _carRepository.GetCarByIdAsync(id);
+            var spec = new CarsWithTypesAndBrandsSpecification(id);
+
+            return await _carRepo.GetEntityWithSpec(spec);
         }
 
         [HttpGet("manufacturers")]
         public async Task<ActionResult<IReadOnlyList<CarManufacturer>>> GetCarManufacturers()
         {
-            return Ok(await _carRepository.GetCarManufacturersAsync());
+            return Ok(await _manuRepo.ListAllAsync());
         }
 
         [HttpGet("types")]
         public async Task<ActionResult<IReadOnlyList<CarManufacturer>>> GetCarTypes()
         {
-            return Ok(await _carRepository.GetCarTypesAsync());
+            return Ok(await _typeRepo.ListAllAsync());
         }
     }
 }
