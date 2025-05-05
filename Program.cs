@@ -6,6 +6,8 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using CarShopApi.Core.Entities;
 using Core.Interfaces;
+using AutoMapper;
+using CarShopApi.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +20,7 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("CarShopConnectio
 
 builder.Services.AddScoped<ICarRepository, CarRepository>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddAutoMapper(typeof(MappingProfiles));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -34,6 +37,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseStaticFiles();
 
 app.UseAuthorization();
 
